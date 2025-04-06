@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+
 }
 
 android {
@@ -68,6 +69,8 @@ dependencies {
 
     //navigation
     implementation(libs.androidx.navigation.compose)
+
+    implementation ("org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.14.0")
 
     //accompanist
     implementation(libs.accompanist.systemuicontroller)
