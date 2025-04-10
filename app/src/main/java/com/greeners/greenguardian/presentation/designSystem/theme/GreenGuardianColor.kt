@@ -20,6 +20,7 @@ data class GreenGuardianColor(
     val success:Color,
     val successContainer:Color,
     val warning: Color,
+    val lemon: Color,
     val warningContainer: Color,
 )
 
@@ -40,10 +41,11 @@ internal val lightThemeColors = GreenGuardianColor(
     success = Color(0xFF41BE88),
     successContainer = Color(0xFFF0FFF7),
     warning = Color(0xFFF2BD00),
+    lemon = Color(0xFFA7E954),
     warningContainer = Color(0xFFFFFCEB),
 )
 
-
+//TODO: put dark theme color here when they ready
 internal val darkThemeColors = GreenGuardianColor(
     primary = Color(0xFF1DA055),
     primaryTint = Color(0xFFE5FAEE),
@@ -61,6 +63,7 @@ internal val darkThemeColors = GreenGuardianColor(
     success = Color(0xFF41BE88),
     successContainer = Color(0xFFF0FFF7),
     warning = Color(0xFFF2BD00),
+    lemon = Color(0xFFA7E954),
     warningContainer = Color(0xFFFFFCEB),
 )
 
