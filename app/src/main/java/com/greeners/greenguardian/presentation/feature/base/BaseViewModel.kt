@@ -1,5 +1,6 @@
 package com.greeners.greenguardian.presentation.feature.base
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.CoroutineDispatcher
@@ -18,7 +19,6 @@ import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlinx.datetime.Clock
 import org.koin.core.component.KoinComponent
 
 abstract class BaseViewModel<S, E>(initialState: S) : ViewModel(), KoinComponent {
@@ -46,14 +46,32 @@ abstract class BaseViewModel<S, E>(initialState: S) : ViewModel(), KoinComponent
         onError: () -> Unit,
         inScope: CoroutineScope = viewModelScope
     ): Job {
-        return runWithErrorCheck(onError, inScope) {
+        return runWithErrorCheck(
+            onError = { _, _ -> onError() },
+            inScope = inScope
+        ) {
+            val result = function()
+            onSuccess(result)
+        }
+    }
+
+    protected fun <T> tryToExecute(
+        function: suspend () -> T,
+        onSuccess: (T) -> Unit,
+        onErrorWithThrowable: (Throwable) -> Unit,
+        inScope: CoroutineScope = viewModelScope
+    ): Job {
+        return runWithErrorCheck(
+            onError = { throwable, _ -> onErrorWithThrowable(throwable) },
+            inScope = inScope
+        ) {
             val result = function()
             onSuccess(result)
         }
     }
 
     private fun runWithErrorCheck(
-        onError: () -> Unit,
+        onError: (Throwable, String?) -> Unit,
         inScope: CoroutineScope = viewModelScope,
         dispatcher: CoroutineDispatcher = Dispatchers.Unconfined,
         function: suspend () -> Unit
@@ -62,11 +80,11 @@ abstract class BaseViewModel<S, E>(initialState: S) : ViewModel(), KoinComponent
             try {
                 function()
             } catch (e: Exception) {
-                onError()
+                Log.e("BaseViewModel", "Error: ${e.message}")
+                onError(e, e.message)
             }
         }
     }
-
 
     private fun <T> Flow<T>.throttleFirst(windowDuration: Long): Flow<T> {
         var job: Job = Job().apply { complete() }
