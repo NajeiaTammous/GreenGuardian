@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+<!-- Base application theme -->
+<style name="Theme.GreenGuardian" parent="android:Theme.Material.Light.NoActionBar">
+    <!-- Your existing theme properties -->
+</style>
 
-    <style name="Theme.GreenGuardian" parent="android:Theme.Material.Light.NoActionBar" />
+<style name="Theme.App.Starting" parent="Theme.SplashScreen">
+    <item name="windowSplashScreenBackground">#FFFFFF</item>
+    <item name="windowSplashScreenAnimationDuration">300</item>
+    <item name="postSplashScreenTheme">@style/Theme.GreenGuardian</item>
+</style>
+
 </resources>
