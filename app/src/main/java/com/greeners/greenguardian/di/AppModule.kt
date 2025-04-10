@@ -7,6 +7,8 @@ fun appModule() = module {
 
     includes(
         viewModelModule,
+        NetworkModule,
+        repositoryModule,
     )
 
 }
