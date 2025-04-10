@@ -1,17 +1,17 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-
+    alias(libs.plugins.jetbrainsKotlinSerialization)
 }
 
 android {
     namespace = "com.greeners.greenguardian"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.greeners.greenguardian"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -51,6 +51,7 @@ android {
 }
 
 dependencies {
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -69,8 +70,7 @@ dependencies {
 
     //navigation
     implementation(libs.androidx.navigation.compose)
-
-    implementation ("org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.14.0")
+    implementation(libs.kotlinx.serialization.json)
 
     //accompanist
     implementation(libs.accompanist.systemuicontroller)
@@ -88,5 +88,12 @@ dependencies {
     // Koin
     implementation(libs.koin.core)
     implementation(libs.koin.androidx.compose)
+
+    //retrofit
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.gson)
+    implementation(libs.logging.interceptor)
+    implementation(libs.androidx.core.splashscreen)
 
 }
